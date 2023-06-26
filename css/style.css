@@ -1,0 +1,68 @@
+
+
+body { 
+    background-color: forestgreen;
+    font-family: "Lucida Console", "Courier New", monospace;
+    padding: 20px;
+    line-height: 50px;
+}
+
+.main-grid {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: auto;
+    grid-gap: 20px;
+    width: 50%;
+    margin: auto;
+}
+
+.main-grid__item {
+    background-color: rgba(0, 0, 0, .4);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-auto-flow: initial;
+    width: auto;
+    border: 0 solid black;
+}
+
+.title {
+    display: inline-block;
+    font-size: 80px;
+    color: red;
+    margin: 0 0 50px 0;
+}
+
+.title:last-child {
+    color: white;
+}
+.pokemon {
+    font-weight: 700;
+    font-size: 26px;
+    color: black;
+    padding: 20px;
+}
+
+.attribute {
+    font-size: 20px;
+    font-weight: 700;
+    padding: 20px;
+}
+.size-status {
+    color: white;
+    font-size: 22px;
+    font-weight: 700;
+    padding: 20px;
+}
+
+#grass {
+    color: green;
+}
+#poison {
+    color: purple;
+}
+#fire {
+    color: orangered;
+}
+#water {
+    color: lightskyblue;
+}
