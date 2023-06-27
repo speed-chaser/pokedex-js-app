@@ -1,3 +1,5 @@
+const mainGrid = document.getElementById('main-grid');
+
 const pokemonRepository = (() => {
 let pokemonList = [
     { 
@@ -63,46 +65,53 @@ let pokemonList = [
     const getAll = () => {
         return pokemonList;
     }
+
+    const showDetails = (pokemon) => {
+        console.log(pokemon.name);
+    }
+
+    const addGridItem = (pokemon) => {
+        const sizeStatus = pokemon.height > 1 ? 'Large Pokemon' : '';
+
+        const gridItem = document.createElement('button');
+        gridItem.classList.add('main-grid__item');
+        gridItem.addEventListener('click', () => {showDetails(pokemon)});
+    
+        const dexNumberSpan = document.createElement('span');
+        dexNumberSpan.classList.add('dex-number');
+        dexNumberSpan.innerText = "#" + pokemon.dexNumber;
+    
+        const nameSpan = document.createElement('span');
+        nameSpan.classList.add('pokemon');
+        nameSpan.innerText = pokemon.name;
+    
+        /*const typeSpan = document.createElement('span');
+        typeSpan.classList.add('attribute');
+        typeSpan.innerText = pokemon.types.join(', ');
+    
+        const heightSpan = document.createElement('span');
+        heightSpan.classList.add('attribute');
+        heightSpan.innerText = "Height: " + pokemon.height + "m";
+    
+        const sizeSpan = document.createElement('span');
+        sizeSpan.classList.add('size-status');
+        sizeSpan.innerText = sizeStatus;*/
+    
+        gridItem.append(dexNumberSpan, nameSpan/*, typeSpan, heightSpan, sizeSpan*/);
+        mainGrid.append(gridItem);
+    }
 return {
     add: add,
-    getAll: getAll
+    getAll: getAll,
+    showDetails: showDetails,
+    addGridItem: addGridItem
 };
 })();
 console.log(pokemonRepository.getAll());
 pokemonRepository.add({ dexNumber: 10, name: 'Caterpie', types: ['bug'], height: .3});
 console.log(pokemonRepository.getAll());
 
-const mainGrid = document.getElementById('main-grid');
-
 pokemonRepository.getAll().forEach((pokemon) => {
-
-    const sizeStatus = pokemon.height > 1 ? 'Large Pokemon' : '';
-
-    const gridItem = document.createElement('div');
-
-    gridItem.classList.add('main-grid__item');
-
-    const dexNumberSpan = document.createElement('span');
-    dexNumberSpan.classList.add('dex-number');
-    dexNumberSpan.innerText = "#" + pokemon.dexNumber;
-
-    const nameSpan = document.createElement('span');
-    nameSpan.classList.add('pokemon');
-    nameSpan.innerText = pokemon.name;
-
-    const typeSpan = document.createElement('span');
-    typeSpan.classList.add('attribute');
-    typeSpan.innerText = pokemon.types.join(', ');
-
-    const heightSpan = document.createElement('span');
-    heightSpan.classList.add('attribute');
-    heightSpan.innerText = "Height: " + pokemon.height + "m";
-
-    const sizeSpan = document.createElement('span');
-    sizeSpan.classList.add('size-status');
-    sizeSpan.innerText = sizeStatus;
-
-    gridItem.append(dexNumberSpan, nameSpan, typeSpan, heightSpan, sizeSpan);
-    mainGrid.append(gridItem);
-
+    pokemonRepository.addGridItem(pokemon);
 });
+
