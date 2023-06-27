@@ -1,4 +1,4 @@
-//Variables
+const pokemonRepository = (() => {
 let pokemonList = [
     { 
         dexNumber: 1, 
@@ -33,7 +33,7 @@ let pokemonList = [
     { 
         dexNumber: 6, 
         name: 'Charizard', 
-        types: ['fire'], 
+        types: ['fire', 'flying'], 
         height: 1.7
     },
     { 
@@ -55,34 +55,54 @@ let pokemonList = [
         height: 1.6
     },
 ];
- 
-let sizeStatus = '';
-let gridStructureStart = 
-    `<div class="main-grid">
-    `;
 
-//let pokemonType = pokemonList.types;
-//let typeColor = document.getElementsByClassName(type);
-
-//if(pokemonType === 'grass') {
-   // typeColor = "grass";
-//}
-
-//printing
-document.write(gridStructureStart);
-
-
-for(i = 0; i < pokemonList.length; i++){
-
-    if (pokemonList[i].height > 1) {
-        sizeStatus = 'Wow, big boy!';
+    const add = (pokemon) => {
+        pokemonList.push(pokemon);
     }
-    else {
-        sizeStatus = '';
+
+    const getAll = () => {
+        return pokemonList;
     }
-    document.write('<div class="main-grid__item"><span class="pokemon">',pokemonList[i].name,'</span>');
-    document.write('<span id="type" class="attribute">' + pokemonList[i].types + '</span>');
-    document.write('<span class="attribute"> Height: ' + pokemonList[i].height + '</span>');
-    document.write('<div class="size-status">' + sizeStatus,'</div></div>');
-  };
-    document.write('</div>');
+return {
+    add: add,
+    getAll: getAll
+};
+})();
+console.log(pokemonRepository.getAll());
+pokemonRepository.add({ dexNumber: 10, name: 'Caterpie', types: ['bug'], height: .3});
+console.log(pokemonRepository.getAll());
+
+const mainGrid = document.getElementById('main-grid');
+
+pokemonRepository.getAll().forEach((pokemon) => {
+
+    const sizeStatus = pokemon.height > 1 ? 'Large Pokemon' : '';
+
+    const gridItem = document.createElement('div');
+
+    gridItem.classList.add('main-grid__item');
+
+    const dexNumberSpan = document.createElement('span');
+    dexNumberSpan.classList.add('dex-number');
+    dexNumberSpan.innerText = "#" + pokemon.dexNumber;
+
+    const nameSpan = document.createElement('span');
+    nameSpan.classList.add('pokemon');
+    nameSpan.innerText = pokemon.name;
+
+    const typeSpan = document.createElement('span');
+    typeSpan.classList.add('attribute');
+    typeSpan.innerText = pokemon.types.join(', ');
+
+    const heightSpan = document.createElement('span');
+    heightSpan.classList.add('attribute');
+    heightSpan.innerText = "Height: " + pokemon.height + "m";
+
+    const sizeSpan = document.createElement('span');
+    sizeSpan.classList.add('size-status');
+    sizeSpan.innerText = sizeStatus;
+
+    gridItem.append(dexNumberSpan, nameSpan, typeSpan, heightSpan, sizeSpan);
+    mainGrid.append(gridItem);
+
+});

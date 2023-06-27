@@ -1,13 +1,24 @@
-
-
 body { 
-    background-color: forestgreen;
+    background-color: rgb(186, 200, 203);
     font-family: "Lucida Console", "Courier New", monospace;
     padding: 20px;
     line-height: 50px;
 }
 
-.main-grid {
+.title {
+    display: inline-block;
+    font-size: 80px;
+    color: red;
+    margin: 0 0 50px 0;
+    letter-spacing: 4px;
+    text-shadow: 5px 4px 2px rgba(0, 0, 0, .4);
+}
+
+.title:last-child {
+    color: white;
+}
+
+#main-grid {
     display: grid;
     grid-template-rows: auto;
     grid-template-columns: auto;
@@ -17,23 +28,18 @@ body {
 }
 
 .main-grid__item {
-    background-color: rgba(0, 0, 0, .4);
+    background-color: rgba(53, 113, 150, 0.4);
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 5% 1fr 1fr 1fr 1fr;
     grid-auto-flow: initial;
     width: auto;
-    border: 0 solid black;
+    box-shadow: 0 5px 7.5px rgba(0, 0, 0, .6);
 }
 
-.title {
-    display: inline-block;
-    font-size: 80px;
-    color: red;
-    margin: 0 0 50px 0;
-}
-
-.title:last-child {
-    color: white;
+.dex-number {
+    font-weight: 700;
+    font-size: 26px;
+    padding: 20px;
 }
 .pokemon {
     font-weight: 700;
@@ -66,3 +72,5 @@ body {
 #water {
     color: lightskyblue;
 }
+
+
