@@ -1,62 +1,8 @@
 const mainGrid = document.getElementById('main-grid');
-
+const header = document.getElementById('loading');
 const pokemonRepository = (() => {
-let pokemonList = [
-    { 
-        dexNumber: 1, 
-        name: 'Bulbasaur', 
-        types: ['grass', 'poison'], 
-        height: 0.7
-    },
-    { 
-        dexNumber: 2, 
-        name: 'Ivysaur', 
-        types: ['grass', 'poison'], 
-        height: 1
-    },
-    { 
-        dexNumber: 3, 
-        name: 'Venusaur', 
-        types: ['grass', 'poison'], 
-        height: 2
-    },
-    { 
-        dexNumber: 4, 
-        name: 'Charmander', 
-        types: ['fire'], 
-        height: 0.6
-    },
-    { 
-        dexNumber: 5, 
-        name: 'Charmeleon', 
-        types: ['fire'], 
-        height: 1.1
-    },
-    { 
-        dexNumber: 6, 
-        name: 'Charizard', 
-        types: ['fire', 'flying'], 
-        height: 1.7
-    },
-    { 
-        dexNumber: 7, 
-        name: 'Squirtle', 
-        types: ['water'], 
-        height: 0.5
-    },
-    { 
-        dexNumber: 8, 
-        name: 'Wartortle', 
-        types: ['water'], 
-        height: 1
-    },
-    { 
-        dexNumber: 9, 
-        name: 'Blastoise', 
-        types: ['water'], 
-        height: 1.6
-    },
-];
+let pokemonList = [];
+let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
 
     const add = (pokemon) => {
         pokemonList.push(pokemon);
@@ -66,8 +12,45 @@ let pokemonList = [
         return pokemonList;
     }
 
+    const loadList = () => {
+        showLoadingMessage();
+        return fetch(apiUrl).then((response) => {
+        return response.json();
+        }).then((json) => {
+            json.results.forEach((item) => {
+            let pokemon = {
+            name: item.name,
+            detailsUrl: item.url
+            };
+            add(pokemon);
+            hideLoadingMessage();
+        });
+        }).catch((e) => {
+            console.error(e);
+            hideLoadingMessage();
+        })
+    }
+
+    const loadDetails = (item) => {
+        showLoadingMessage();
+        let url = item.detailsUrl;
+        return fetch(url).then((response) => {
+            return response.json();
+        }).then((details) => {
+            item.imageUrl = details.sprites.front_default;
+            item.height = details.height;
+            item.types = details.types;
+            hideLoadingMessage();
+        }).catch((e) => {
+            console.error(e);
+            hideLoadingMessage();
+        });
+    }
+
     const showDetails = (pokemon) => {
-        console.log(pokemon.name);
+        loadDetails(pokemon).then(() => {
+            console.log(pokemon);
+        });
     }
 
     const addGridItem = (pokemon) => {
@@ -77,38 +60,45 @@ let pokemonList = [
         gridItem.classList.add('main-grid__item');
         gridItem.addEventListener('click', () => {showDetails(pokemon)});
     
-        const dexNumberSpan = document.createElement('span');
-        dexNumberSpan.classList.add('dex-number');
-        dexNumberSpan.innerText = "#" + pokemon.dexNumber;
-    
         const nameSpan = document.createElement('span');
         nameSpan.classList.add('pokemon');
         nameSpan.innerText = pokemon.name;
-    
-        /*const typeSpan = document.createElement('span');
-        typeSpan.classList.add('attribute');
-        typeSpan.innerText = pokemon.types.join(', ');
-    
-        const heightSpan = document.createElement('span');
-        heightSpan.classList.add('attribute');
-        heightSpan.innerText = "Height: " + pokemon.height + "m";
-    
-        const sizeSpan = document.createElement('span');
-        sizeSpan.classList.add('size-status');
-        sizeSpan.innerText = sizeStatus;*/
-    
-        gridItem.append(dexNumberSpan, nameSpan/*, typeSpan, heightSpan, sizeSpan*/);
+        
+        gridItem.append(nameSpan);
         mainGrid.append(gridItem);
+    }
+
+    const showLoadingMessage = () => {
+
+        const loadingMessage = document.createElement('span');
+        loadingMessage.classList.add('loadingMessage');
+        loadingMessage.innerText = "Loading...";
+        header.append(loadingMessage);
+    }
+
+    const hideLoadingMessage = () => {
+        const loadingMessage = document.querySelector('.loadingMessage');
+        header.remove(loadingMessage);
     }
 return {
     add: add,
     getAll: getAll,
+    loadList: loadList,
+    loadDetails: loadDetails,
     showDetails: showDetails,
-    addGridItem: addGridItem
+    addGridItem: addGridItem,
+    showLoadingMessage: showLoadingMessage,
+    hideLoadingMessage: hideLoadingMessage
 };
 })();
+
+pokemonRepository.loadList().then(() => {
+    pokemonRepository.getAll().forEach((pokemon) => {
+        pokemonRepository.addGridItem(pokemon);
+    });
+});
+
 console.log(pokemonRepository.getAll());
-pokemonRepository.add({ dexNumber: 10, name: 'Caterpie', types: ['bug'], height: .3});
 console.log(pokemonRepository.getAll());
 
 pokemonRepository.getAll().forEach((pokemon) => {
