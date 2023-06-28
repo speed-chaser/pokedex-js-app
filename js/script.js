@@ -60,7 +60,7 @@ let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
         gridItem.classList.add('main-grid__item');
         gridItem.addEventListener('click', () => {showDetails(pokemon)});
     
-        const nameSpan = document.createElement('span');
+        const nameSpan = document.createElement('div');
         nameSpan.classList.add('pokemon');
         nameSpan.innerText = pokemon.name;
 
@@ -103,8 +103,6 @@ let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
         pokemonHeight.classList.add('attribute');
         pokemonHeight.innerText = 'Height: ' + pokemon.height + 'm'; //height shows in meters. Maybe will set up a converter?
 
-    
-    
         let pokemonImage = document.createElement('img');
         pokemonImage.classList.add('pokemon-image');
         pokemonImage.src = pokemon.imageUrl;
@@ -180,13 +178,6 @@ pokemonRepository.loadList().then(() => {
         pokemonRepository.addGridItem(pokemon);
     });
 });
-
-pokemonRepository.getAll().forEach((pokemon) => {
-    pokemonRepository.addGridItem(pokemon);
-});
-
-
-//Event Listeners for modal
 
 
 
