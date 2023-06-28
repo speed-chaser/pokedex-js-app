@@ -25,6 +25,14 @@ let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
             };
             add(pokemon);
             hideLoadingMessage();
+
+            const url = pokemon.detailsUrl;
+            const pattern = /\/(\d+)\/?$/;
+            const match = url.match(pattern);
+
+            if (match) {
+                pokemon.imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${match[1]}.png`;
+            }
         });
         }).catch((e) => {
             console.error(e);
@@ -39,6 +47,7 @@ let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
             return response.json();
         }).then((details) => {
             item.imageUrl = details.sprites.front_default;
+            item.imageUrlLg = details.sprites.other["official-artwork"].front_default;
             item.id = details.id;
             item.height = details.height;
             item.types = details.types;
@@ -52,10 +61,13 @@ let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
     const showDetails = (pokemon) => {
         loadDetails(pokemon).then(() => {
             showModal(pokemon);
+            console.log(pokemon);
         });
     }
 
     const addGridItem = (pokemon) => {
+
+        
         const gridItem = document.createElement('button');
         gridItem.classList.add('main-grid__item');
         gridItem.addEventListener('click', () => {showDetails(pokemon)});
@@ -69,7 +81,7 @@ let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
         smallPokemonImage.src = pokemon.imageUrl; //How do I get the image? I am using the pokemon.name from loadList, need to get imageUrl from loadDetails
 
         
-        gridItem.append(nameSpan, smallPokemonImage);
+        gridItem.append(smallPokemonImage, nameSpan);
         mainGrid.append(gridItem);
     }
 
@@ -87,8 +99,14 @@ let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
         closeButtonElement.addEventListener('click', closeModal);
     
         let pokemonName = document.createElement('h1');
-        pokemonName.classList.add('pokemon');
+        pokemonName.classList.add('pokemon-header');
         pokemonName.innerText = pokemon.name + ' #' + pokemon.id;
+
+        let detailContainer = document.createElement('div');
+        detailContainer.classList.add('detail-container');
+
+        let attributeContainer = document.createElement('div');
+        attributeContainer.classList.add('attribute-container');
     
         let pokemonType = document.createElement('p');
         pokemonType.classList.add('pokemon-type')
@@ -105,23 +123,25 @@ let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
 
         let pokemonImage = document.createElement('img');
         pokemonImage.classList.add('pokemon-image');
-        pokemonImage.src = pokemon.imageUrl;
+        pokemonImage.src = pokemon.imageUrlLg;
     
         //modal.append(closeButtonElement, pokemonName, pokemonType, pokemonHeight, pokemonImage);
+        attributeContainer.append(pokemonType, pokemonHeight);
+        detailContainer.append(attributeContainer, pokemonImage);
         modal.appendChild(closeButtonElement);
         modal.appendChild(pokemonName);
-        modal.appendChild(pokemonType);    //Which is more correct?
-        modal.appendChild(pokemonHeight);
-        modal.appendChild(pokemonImage);
+        modal.append(detailContainer);
         modalContainer.appendChild(modal);
     
-    
+
         modalContainer.classList.add('is-visible');
+        mainGrid.classList.add('is-blurred');
     }
 
     const closeModal = () => {
         let modalContainer = document.getElementById('modal-container');
         modalContainer.classList.remove('is-visible');
+        mainGrid.classList.remove('is-blurred');
     }
 
     const showLoadingMessage = () => {
