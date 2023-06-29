@@ -69,7 +69,10 @@ let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
 
         
         const gridItem = document.createElement('button');
-        gridItem.classList.add('main-grid__item');
+        //gridItem.classList.add('main-grid__item');
+        gridItem.classList.add('col');
+        gridItem.classList.add('btn');
+        gridItem.classList.add('btn-primary');
         gridItem.addEventListener('click', () => {showDetails(pokemon)});
     
         const nameSpan = document.createElement('div');
@@ -94,7 +97,9 @@ let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
         modal.classList.add('modal');
     
         let closeButtonElement = document.createElement('button');
-        closeButtonElement.classList.add('modal-close');
+        closeButtonElement.classList.add('btn');
+        closeButtonElement.classList.add('btn-dark');
+        closeButtonElement.classList.add('float-right');
         closeButtonElement.innerText = 'X';
         closeButtonElement.addEventListener('click', closeModal);
     
