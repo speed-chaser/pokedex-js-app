@@ -134,6 +134,8 @@ let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
 
         closeButtonElement.append(closeButtonSpan);
 
+
+
         modalHeader.append(modalTitle, closeButtonElement);
     
 
@@ -171,7 +173,16 @@ let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
 
         /*modalContainer.classList.add('is-visible');
         mainGrid.classList.add('is-blurred');*/
+
+        $('#modal-container').on('hidden.bs.modal', () => {
+            modalTitle.innerText = "";
+            pokemonType.innerText = "";
+            pokemonHeight.innerText = "";
+            pokemonImage.src = "";
+        });
     }
+
+    
 
     const showLoadingMessage = () => {
         console.log("Loading...");
