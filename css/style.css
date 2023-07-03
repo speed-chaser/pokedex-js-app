@@ -16,6 +16,10 @@ body {
     background-color: rgba(0, 0, 0, .3);
 }
 
+.is-hidden {
+    display: none;
+}
+
 #main-grid {
     display: grid;
     grid-template-rows: auto;
@@ -142,6 +146,16 @@ img {
         width: 100%;
         margin-left: 0;
         grid-template-columns: 1fr 1fr 1fr 1fr;
+        
 }
+    .modal-content {
+        min-height: 360px;
+    }
+}
+
+@media all and (min-width: 1100px) {
+    .modal-content {
+        min-height: 360px;
+    }
 }
 

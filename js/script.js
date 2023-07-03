@@ -60,6 +60,7 @@ let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
     }
 
     const showDetails = (pokemon) => {
+        modalContainer.innerHTML = '';
         loadDetails(pokemon).then(() => {
             showModal(pokemon);
             console.log(pokemon);
@@ -93,7 +94,7 @@ let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
 
     const showModal = (pokemon) => {
 
-        modalContainer.innerHTML = '';
+
 
         modalContainer.classList.add('modal');
         modalContainer.setAttribute('tabindex', '-1');
@@ -125,6 +126,7 @@ let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
         modalTitle.innerText = pokemon.name + ' #' + pokemon.id;
     
         const closeButtonElement = document.createElement('button');
+        closeButtonElement.setAttribute('id', 'close-button');
         closeButtonElement.classList.add('close');
         closeButtonElement.setAttribute('type', 'button');
         closeButtonElement.setAttribute('data-dismiss', 'modal');
@@ -169,14 +171,8 @@ let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
         modal.append(modalContent);
         modalContainer.append(modal);
 
-        $('#modal-container').on('hide.bs.modal', () => {
-            pokemonType.innerHTML = "";
-            pokemonHeight.innerText = "";
-            pokemonImage.src = "";
-        });
-    }
 
-    
+    }
 
     const showLoadingMessage = () => {
         console.log("Loading...");
@@ -186,9 +182,7 @@ let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
         console.log("Finished loading.")
     }  
 
-    const clearModal = () => {
 
-    }
 
 
 return {
@@ -199,9 +193,10 @@ return {
     showDetails: showDetails,
     addGridItem: addGridItem,
     showModal: showModal,
-    clearModal: clearModal
 };
 })();
+
+
 
 pokemonRepository.loadList().then(() => {
     pokemonRepository.getAll().forEach((pokemon) => {
