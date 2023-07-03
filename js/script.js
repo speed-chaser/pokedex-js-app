@@ -85,6 +85,7 @@ let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
 
         const smallPokemonImage = document.createElement('img');
         smallPokemonImage.classList.add('small-icon');
+        smallPokemonImage.setAttribute('willReadFrequently', 'true');
         smallPokemonImage.src = pokemon.imageUrl; //How do I get the image? I am using the pokemon.name from loadList, need to get imageUrl from loadDetails
 
         
@@ -160,6 +161,7 @@ let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
         pokemonHeight.innerText = 'Height: ' + pokemon.height + 'm'; //height shows in meters. Maybe will set up a converter?
 
         let pokemonImage = document.createElement('img');
+        pokemonImage.setAttribute('loading', 'lazy');
         pokemonImage.classList.add('col-6');
         pokemonImage.src = pokemon.imageUrlLg;
 
