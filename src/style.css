@@ -1,0 +1,233 @@
+:root {  /*Thinking of implementing different background colors of modal depending on type of pokemon*/
+    --grass: green;
+    --poison: purple;
+    --fire: orangered;
+    --flying: lightskyblue;
+    --water: rgb(0, 78, 213);
+}
+
+body { 
+    background-color: rgb(44, 54, 52);
+    font-family: "Lucida Console", "Courier New", monospace;
+    padding: 20px;
+}
+
+.dropdown-menu > a:hover {
+    background-color: rgba(0, 0, 0, .3);
+}
+
+.is-hidden {
+    display: none;
+}
+
+#main-grid {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 30px;
+    width: 50%;
+    margin: 120px auto 120px auto;
+    place-items: center;
+}
+
+.small-icon {
+    margin: auto;
+    text-align: center;
+}
+
+img {
+    pointer-events: none;
+}
+
+.btn-bg {
+    background-image: linear-gradient(to bottom, rgb(66, 139, 99), rgb(41, 97, 83));
+    box-shadow: 0 2px 6px black;
+    border: none;
+    transition: background-image .2s, box-shadow .3s;
+}
+
+.btn-bg:hover {
+    background-image: linear-gradient(to bottom, rgb(100, 192, 141), rgb(61, 115, 101));
+    box-shadow: 0 4px 12px black;
+}
+
+.btn-primary:focus {
+    box-shadow: 0 2px 6px black;
+}
+
+.btn-primary:active {
+    box-shadow: 0 2px 6px black;
+}
+
+.borderb-adjust {
+    border-bottom: 1px solid rgb(29, 38, 33);
+}
+
+.header-bg {
+    background-image: linear-gradient(to bottom, rgb(66, 139, 99), rgb(41, 97, 83));
+}
+
+.dex-number {
+    font-weight: 700;
+    font-size: 26px;
+    padding-top: 30px;
+}
+
+.pokemon {
+    user-select: none;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 0;
+    padding-left: 10px;
+    letter-spacing: 2px;
+}
+
+.pokemon:first-letter {
+    text-transform: uppercase;
+}
+
+.pokemon-header:first-letter {
+    text-transform: uppercase;
+}
+
+.no-select{
+    user-select: none;
+}
+
+.pokemon-image {
+    user-select: none;
+    display: flex;
+    justify-content: flex-end;
+    width: 200px;
+    height: 200px;
+}
+
+@media all and (min-width: 300px) and (max-width: 499px){
+    body{
+        padding: 20px;
+    }
+    h1 {
+        font-size: 20px;
+    }
+    #main-grid{
+        width: 100%;
+        margin-left: 0;
+        grid-template-columns: 1fr 1fr;
+    }
+    .grid-item{
+        width: 152px;
+        height: 119px;
+    }
+    .dex-number{
+        padding-top: 20px;
+    }
+    .pokemon{
+        padding-top: -10px;
+        padding-left: 0;
+        margin-top: -10px;
+        font-weight: 700;
+        font-size: 14px;
+    }
+    .modal-content {
+        min-height: 274px;
+    }
+}
+
+@media all and (min-width: 500px) and (max-width: 749px){
+
+    #main-grid{
+        width: 100%;
+        margin-left: 0;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    .dex-number{
+        font-size: 18px;
+    }
+    .pokemon{
+        font-size: 14px;
+        text-align: center;
+        margin-left: 0;
+        padding-left: 0;
+    }
+    .grid-item{
+        min-width: 120px;
+        min-height: 100px;
+        max-width: 188px;
+        max-height: 135px;
+    }
+}
+
+@media all and (min-width: 750px) and (max-width: 999px) {
+    #main-grid {
+        width: 100%;
+        margin-left: 0;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        
+    }
+    .modal-content {
+        min-height: 360px;
+    }
+    .grid-item{
+        min-width: 155px;
+        min-height: 132px;
+        max-width: 242px;
+        max-height: 132px;
+
+    }
+
+}
+
+@media all and (min-width: 1000px) and (max-width: 1200px) {
+
+    #main-grid {
+        width: 100%;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        margin: 4rem 0 4rem 5%;
+    }
+
+    .modal-content {
+        min-height: 360px;
+    }
+    .grid-item{
+        width: 153px;
+        height: 132px;
+        margin: auto;
+        
+    }
+}
+
+@media all and (min-width: 1201px) and (max-width: 1799px) {
+
+    #main-grid {
+        width: 100%;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        margin: 4rem 0;
+    }
+    .modal-content {
+        min-height: 360px;
+    }
+    .grid-item{
+        width: 170px;
+        height: 150px;
+        margin: auto;
+        
+    }
+}
+
+@media all and (min-width: 1800px) {
+    #main-grid {
+        max-width: 60%;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        margin: 4rem auto;
+    }
+    .modal-content {
+        min-height: 360px;
+    }
+    .grid-item{
+        width: 170px;
+        height: 150px;
+        margin: auto;
+        
+    }
+}
+
