@@ -159,7 +159,7 @@ let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=151';
         }
 
         let pokemonHeight = document.createElement('p');
-        pokemonHeight.innerText = 'Height: ' + (pokemon.height / 10) + 'm'; //height shows in meters. Maybe will set up a converter?
+        pokemonHeight.innerText = 'Height: ' + pokemon.height/10 + 'm'; //height shows in meters. Maybe will set up a converter?
 
         let pokemonImage = document.createElement('img');
         pokemonImage.setAttribute('loading', 'lazy');
